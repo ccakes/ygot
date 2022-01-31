@@ -472,7 +472,7 @@ func makeKeyForInsert(schema *yang.Entry, parentMap interface{}, newVal reflect.
 				nv = nv.Elem()
 			}
 			if !nv.IsValid() {
-				return reflect.ValueOf(nil), fmt.Errorf("%v field doesn't have a valid value", kfn)
+				return reflect.ValueOf(nil), fmt.Errorf("%v.%v field doesn't have a valid value", listKeyType.Name(), kfn)
 			}
 			util.DbgPrint("Setting value of %v (%T) in key struct (%T)", nv.Interface(), nv.Interface(), newKey.Interface())
 			newKeyField := newKey.FieldByName(kfn)
