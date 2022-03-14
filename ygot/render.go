@@ -1474,7 +1474,13 @@ func jsonValue(field reflect.Value, parentMod string, args jsonOutputConfig) (in
 			value = true
 		}
 	default:
-		return nil, fmt.Errorf("got unexpected field type, was: %v", field.Kind())
+		// return nil, fmt.Errorf("got unexpected field type, was: %v (%v)", field.Kind(), field.Type().Name())
+
+		if field.CanInterface() {
+			value = field.Interface()
+		} else {
+			return nil, fmt.Errorf("got unexpected field type, was: %v", field.Kind())
+		}
 	}
 
 	if errs.Err() != nil {
